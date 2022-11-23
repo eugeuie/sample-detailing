@@ -5,3 +5,4 @@
 
 [Introduction to Geospatial Raster and Vector Data with Python](https://carpentries-incubator.github.io/geospatial-python/aio/index.html)  
 [О нормализации данных](https://habr.com/ru/post/527334/)  
+[Sentinel-2 Bands and Combinations](https://gisgeography.com/sentinel-2-bands-combinations/)  

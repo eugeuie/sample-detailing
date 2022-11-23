@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import numpy as np
+import rasterio as rio
 from . import config  # TODO
 
 
@@ -55,3 +56,15 @@ def make_experiment_dirs(
         dirs.append(models_dir)
 
     return tuple(dirs)
+
+
+def combine_bands(bands_paths: list[str], dst_path: str) -> None:
+    with rio.open(bands_paths[0]) as src_img:
+        meta = src_img.meta
+
+    meta.update(count=len(bands_paths))
+
+    with rio.open(dst_path, "w", **meta) as dst_img:
+        for id, band in enumerate(bands_paths, start=1):
+            with rio.open(band) as src_img:
+                dst_img.write_band(id, src_img.read(1))
