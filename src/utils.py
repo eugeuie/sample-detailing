@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 import numpy as np
 import rasterio as rio
+from rasterio.merge import merge
 from . import config  # TODO
 
 
@@ -68,3 +69,23 @@ def combine_bands(bands_paths: list[str], dst_path: str) -> None:
         for id, band in enumerate(bands_paths, start=1):
             with rio.open(band) as src_img:
                 dst_img.write_band(id, src_img.read(1))
+
+
+def merge_fragments(fragments_paths: list[str], dst_path: str) -> None:
+    fragments_imgs = []
+    for path in fragments_paths:
+        src_img = rio.open(path)
+        fragments_imgs.append(src_img)
+    mosaic, mosaic_transform = merge(fragments_imgs)
+    mosaic_meta = fragments_imgs[0].meta.copy()
+    mosaic_meta.update(
+        {
+            "height": mosaic.shape[1],
+            "width": mosaic.shape[2],
+            "transform": mosaic_transform,
+        }
+    )
+    with rio.open(
+        dst_path, "w", **mosaic_meta
+    ) as dst_img:
+        dst_img.write(mosaic)

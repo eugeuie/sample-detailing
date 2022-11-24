@@ -6,3 +6,7 @@
 [Introduction to Geospatial Raster and Vector Data with Python](https://carpentries-incubator.github.io/geospatial-python/aio/index.html)  
 [О нормализации данных](https://habr.com/ru/post/527334/)  
 [Sentinel-2 Bands and Combinations](https://gisgeography.com/sentinel-2-bands-combinations/)  
+[About Sentinel Data Values](https://www.sentinel-hub.com/faq/how-are-values-calculated-within-sentinel-hub-and-how-are-they-returned-output/)  
+[Sentinel-2 L1C Data Units](https://docs.sentinel-hub.com/api/latest/data/sentinel-2-l1c/#units)  
+[Python GIS Course](https://automating-gis-processes.github.io/CSC18/index.html)  
+[Creating Raster Mosaic in rastaerio](https://automating-gis-processes.github.io/CSC18/lessons/L6/raster-mosaic.html)  
