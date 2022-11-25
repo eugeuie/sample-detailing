@@ -85,7 +85,20 @@ def merge_fragments(fragments_paths: list[str], dst_path: str) -> None:
             "transform": mosaic_transform,
         }
     )
-    with rio.open(
-        dst_path, "w", **mosaic_meta
-    ) as dst_img:
+    with rio.open(dst_path, "w", **mosaic_meta) as dst_img:
         dst_img.write(mosaic)
+
+
+def crop_by_window(src_path: str, dst_path: str, window: rio.windows.Window) -> None:
+    with rio.open(src_path) as src_img:
+        meta = src_img.meta.copy()
+        meta.update(
+            {
+                "height": window.height,
+                "width": window.width,
+                "transform": rio.windows.transform(window, src_img.transform),
+            }
+        )
+
+        with rio.open(dst_path, "w", **meta) as dst_img:
+            dst_img.write(src_img.read(window=window))
